@@ -6,9 +6,13 @@ import sys
 class Functions():
     fourier_1 = []
     fourier_2 = []
+    # fou_send_1 = []
+    # fou_send_2 = []
+    var = [0,3]
     flag_1 = False
     flag_2 = False
     random_mat = np.random.randint(0,1000,size=(800,800))
+    fouriers_list = [random_mat,random_mat,random_mat,random_mat]
     def fourier(img):
         matrix = cv.imread(img)
         matrix = cv.cvtColor(matrix, cv.COLOR_BGR2GRAY)
