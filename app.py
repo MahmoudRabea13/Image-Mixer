@@ -12,27 +12,24 @@ import os
 import sys
 app = Flask(__name__)
 
-# @app.route('/', methods=['GET', 'POST'])
-# def index():
-#     return render_template('index.html')
-# @app.route('/get', methods=['GET', 'POST'])
-# def get(jsdata):
-#     print(jsdata)
-#     return 'success'
-# @app.route('/post', methods=['GET', 'POST'])
-# def post():
-#     print('hello')
-#     print(request.form['data'])
-#     return 'success'
-# if __name__ == '__main__':
-#     app.run()
 
-########################################### Misara #######################################
 @app.route("/" ,methods=['POST','GET'])
 def image():
     if request.method == 'POST':
         img1=request.files.get('image1')
         img2=request.files.get('image2')
+        phasemag = request.files.get('phasemag')
+        select_cut = request.files.get('selectORcut')
+        if select_cut != None:
+            if select_cut.filename == '1':
+                print('select')
+            else:
+                print('CUTZZZZZ')            
+        if phasemag != None:
+            if phasemag.filename == '1':
+                print('phase1mag2')
+            else:
+                print('phase2mag1')
         if img1 != None:
             imgs_save = img1.filename + '.jpg'
             img1.save(imgs_save)
