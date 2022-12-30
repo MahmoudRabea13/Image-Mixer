@@ -2,28 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Image MiXer</title>
 </head>
 <body>
+    <h1 class="text-center">
+        Image MiXer
+    </h1>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/3.2.5/konva.min.js"></script>
     <script src="https://unpkg.com/konva@8.3.14/konva.min.js"></script>
-    <div>Render a local image without upload</div>
+    <link rel="stylesheet" href="/static/style.css">
     <div>
-        <input type="file" id="file_input">
-        <button onclick="move()" class="button">move</button>
-        <button onclick="delete_()" class="button">delete</button>
-        <input type="file" id="file_input_2">
-        <form action="/" method="POST" id="form1-phasemag"><button id="phase1mag2" value=" ">Phase1&Mag2</button></form>
-        <form action="/" method="POST" id="form2-phasemag"><button id="phase2mag1" value=" ">Phase2&Mag1</button></form>
-        <form action="/" method="POST" id="select"><button id="select" value=" ">Select</button></form>
-        <form action="/" method="POST" id="cut"><button id="cut" value=" ">Cut</button></form>
+        <input type="file" id="file_input" class="custom-inp" >
+        <input type="file" id="file_input_2" class="custom-inp" >
+        <button onclick="delete_()" class="btn">delete</button>
+        <form action="/" method="POST" id="form1-phasemag"><button id="phase1mag2" value=" "class="btn">Phase1&Mag2</button></form>
+        <form action="/" method="POST" id="form2-phasemag"><button id="phase2mag1" value=" " class="btn">Phase2&Mag1</button></form>
+        <form action="/" method="POST" id="select"><button id="select" value=" " class="btn">Select</button></form>
+        <form action="/" method="POST" id="cut"><button id="cut" value=" " class="btn">Cut</button></form>
     </div>
-    <div id="canvas-container" style='display: inline-block; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
-    <div id="canvas-container-2" style='display: inline-block; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
-    <div id="canvas-container-3" style='display: inline-block; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
-    <div id="canvas-container-4" style='display: inline-block; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
-    <div id="canvas-container-5" style='display: inline-block; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
+    <div class="img-container">
+    <div id="canvas-container" class="canvas1" style='display: grid; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
+    <div id="canvas-container-3" class="canvas3" style='display: grid; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
+    <div id="canvas-container-2" class="canvas2" style='display: grid; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
+    <div id="canvas-container-4" class="canvas4" style='display: grid; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
+    <div id="canvas-container-5" class="canvas5"  style='display: grid; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>
+
+</div>
+
 </body>
     <script  src="/static/main.js"> </script>
 </html>
