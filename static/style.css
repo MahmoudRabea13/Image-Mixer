@@ -1,0 +1,51 @@
+h1{
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color:#2F827C;
+    font-weight: normal;
+    color: #e0e5ec;
+    border-radius: 50% 0%;
+    border-style:solid;
+  }
+  .custom-inp{
+
+    padding: 2px;
+    margin-right: 5px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif  ;
+  }
+  .custom-inp::-webkit-file-upload-button:hover{
+    background-color: #7c7c7c;
+  }  
+  .custom-inp::-webkit-file-upload-button{
+    background-color:fbf8f8;
+    color: #2F827C solid;
+    border-radius: 20px;
+    border: 3px solid  #2F827C;
+    padding: 0.5em 1em;
+    margin-left: 25%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif ;
+    font-weight:500;
+  }
+  .btn{
+    background-color:fbf8f8;
+    color: #2F827C solid;
+    border-radius: 20px;
+    border: 3px solid  #2F827C;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    display: inline-flex;
+    cursor: pointer;
+    margin-left: 5px;
+    justify-content: center;
+  }
+  .btn:hover{
+    background-color: #7c7c7c;
+  }
+.img-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
