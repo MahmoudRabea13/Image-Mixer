@@ -31,7 +31,8 @@ class Functions():
     def visulaize(fourier,number):
         plt.figure()
         plt.imshow(fourier, cmap='gray')
-        plt.savefig(f'static/{number}.jpg')
+        plt.axis('off')
+        plt.savefig(f'static/{number}.jpg', bbox_inches='tight', pad_inches=0)
     def re_fourier(magnitude,phase):
         re_fourier = magnitude*np.exp(1j*phase)
         re_fourier = np.fft.ifft2(re_fourier)
