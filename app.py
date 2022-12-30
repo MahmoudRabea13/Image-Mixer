@@ -26,6 +26,15 @@ app = Flask(__name__)
 @app.route("/" ,methods=['POST','GET'])
 def image():
     if request.method == 'POST':
+        img1=request.files.get('image1')
+        img2=request.files.get('image2')
+        if img1 != None:
+            imgs_save = img1.filename + '.jpg'
+            img1.save(imgs_save)
+        if img2 != None:
+            imgs_save2 = img2.filename + '.jpg'
+            img2.save(imgs_save2)
+
         return render_template('main.html')
     else:
         return render_template('main.html')
