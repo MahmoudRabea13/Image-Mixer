@@ -36,17 +36,23 @@ def image():
         if img1 != None:
             imgs_save = img1.filename + '.jpg'
             img1.save(imgs_save)
+            Functions.fourier_1 = Functions.fourier('./image1.jpg')
+            Functions.fourier_1 = Functions.magphase(Functions.fourier_1, 'mag')
+            Functions.visulaize(np.log(Functions.fourier_1),1)
+            Functions.flag_1 = True
         if img2 != None:
             imgs_save2 = img2.filename + '.jpg'
             img2.save(imgs_save2)
-        Functions.fourier_1 = Functions.fourier('./image1.jpg')
-        Functions.fourier_2 = Functions.fourier('./image2.jpg')
-        # print(Functions.fourier_1.shape)
-        Functions.fourier_1 = Functions.magphase(Functions.fourier_1, 'mag')
-        Functions.fourier_2 = Functions.magphase(Functions.fourier_2, 'phase')
-        Functions.visulaize(np.log(Functions.fourier_1),1)
-        Functions.visulaize(Functions.fourier_2,2)
-        re_image = Functions.re_fourier(Functions.fourier_1,Functions.fourier_2)
+            Functions.fourier_2 = Functions.fourier('./image2.jpg')
+            Functions.fourier_2 = Functions.magphase(Functions.fourier_2, 'phase')
+            Functions.visulaize(Functions.fourier_2,2)
+            Functions.flag_2 = True
+        if Functions.flag_1:
+            re_image = Functions.re_fourier(Functions.fourier_1,Functions.random_mat)
+        if Functions.flag_2:
+            re_image = Functions.re_fourier(Functions.random_mat,Functions.fourier_2)
+        if Functions.flag_1 and Functions.flag_2:
+            re_image = Functions.re_fourier(Functions.fourier_1,Functions.fourier_2)
         Functions.visulaize(np.abs(re_image),3)
         return render_template('main.html')
     else:
