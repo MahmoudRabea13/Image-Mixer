@@ -14,8 +14,8 @@ let rect_flag = 0;
 // Create the stage and a layer to draw on.
 var stage = new Konva.Stage({
   container: 'canvas-container',
-  width: 500,
-  height: 500
+  width: 369,
+  height: 369
 });
 
 var layer = new Konva.Layer();
@@ -36,7 +36,7 @@ $("#file_input").change(function(e){
       var img_height = img.height;
 
       // calculate dimensions to get max 300px
-      var max = 500;
+      var max = 369;
       var ratio = (img_width > img_height ? (img_width / max) : (img_height / max))
 
       // now load the Konva image
@@ -157,8 +157,8 @@ function move(){
 // Create the stage and a layer to draw on.
 var stage_2 = new Konva.Stage({
   container: 'canvas-container-2',
-  width: 500,
-  height: 500
+  width: 369,
+  height: 369
 });
 
 var layer_2 = new Konva.Layer();
@@ -178,7 +178,7 @@ $("#file_input_2").change(function(e){
       var img_height = img.height;
 
       // calculate dimensions to get max 300px
-      var max = 500;
+      var max = 369;
       var ratio = (img_width > img_height ? (img_width / max) : (img_height / max))
 
       // now load the Konva image
@@ -271,10 +271,18 @@ form1.addEventListener("click",function(e){
   var blob = new Blob(send);
   console.log(blob)
   var fd2 = new FormData();
-  fd2.append("phasemag",blob,"1");  
   var xhr = new XMLHttpRequest;
+  fd2.append("phasemag",blob,"1");  
+  xhr.onreadystatechange = function() {
+    if (xhr.status == 200) {
+      send_img1();
+      send_img2();
+      send_result();    
+    }
+  };
   xhr.open( "POST", "/",true);
   xhr.send(fd2);
+  console.log('success');
 });
 form2.addEventListener("click",function(e){
   e.preventDefault();
@@ -283,10 +291,18 @@ form2.addEventListener("click",function(e){
   var send = [phase1mag2.value,phase2mag1.value];
   var blob = new Blob(send);
   var fd2 = new FormData();
-  fd2.append("phasemag",blob,"2");  
   var xhr = new XMLHttpRequest;
+  fd2.append("phasemag",blob,"2");  
+  xhr.onreadystatechange = function() {
+    if (xhr.status == 200) {
+      send_img1();
+      send_img2();
+      send_result();    
+    }
+  };
   xhr.open( "POST", "/",true);
   xhr.send(fd2);
+  console.log('success2');
 });
 select.addEventListener("click",function(e){
   e.preventDefault();
@@ -327,5 +343,7 @@ function checkIfImageExists(url, callback) {
       };
   }
 }
+
+
 
 
