@@ -1,3 +1,10 @@
+img1 = document.getElementById('canvas-container-3')
+img2 = document.getElementById('canvas-container-4')
+result = document.getElementById('canvas-container-5')
+var form1 = document.getElementById('form1')
+var form2 = document.getElementById('form2')
+var phase1mag2 = document.getElementById('phase1mag2')
+var phase2mag1 = document.getElementById('phase2mag1')
 let isNowDrawing = false;
 let rectArray = [];
 let rect_flag = 0;
@@ -46,9 +53,15 @@ $("#file_input").change(function(e){
     var fd = new FormData();
     fd.append("image1",e.target.files[0],"./image1");  
     var xhr = new XMLHttpRequest;
+    xhr.onreadystatechange = function() {
+      if (xhr.status == 200) {
+        send_img1();
+        send_result();    
+      }
+    };  
     xhr.open( "POST", "/",true);
     xhr.send(fd);
-});
+  });
 
 function rectdown() {
   rect = new Konva.Rect({
@@ -181,8 +194,14 @@ $("#file_input_2").change(function(e){
       layer_2.draw();
     }
     var fd = new FormData();
-    fd.append("image2",e.target.files[0],"./image2");  
     var xhr = new XMLHttpRequest;
+    fd.append("image2",e.target.files[0],"./image2");
+    xhr.onreadystatechange = function() {
+      if (xhr.status == 200) {
+        send_img2();
+        send_result();    
+      }
+    };  
     xhr.open( "POST", "/",true);
     xhr.send(fd);
 });
@@ -195,3 +214,91 @@ function delete_(){
   //console.log(rectArray);
   layer.draw();
 }
+
+function send_img1(){
+  checkIfImageExists('/static/1.jpg', (exists) => {
+  if (exists) {
+      console.log('Image exists.')
+      var timestamp = new Date().getTime();
+      img1_received = document.createElement("img");
+      img1_received.src = '/static/1.jpg?t='+ timestamp;
+      img1.innerHTML = " ";
+      img1.appendChild(img1_received);
+      console.log("sucessfully send"); 
+  } else {
+      console.log('Image does not exists.')
+  }
+});
+}
+function send_img2(){
+  checkIfImageExists('/static/2.jpg', (exists) => {
+  if (exists) {
+      console.log('Image exists.')
+      var timestamp = new Date().getTime();
+      img2_received = document.createElement("img");
+      img2_received.src = '/static/2.jpg?t='+ timestamp;
+      img2.innerHTML = " ";
+      img2.appendChild(img2_received);
+      console.log("sucessfully send"); 
+  } else {
+      console.log('Image does not exists.')
+  }
+});
+}
+function send_result(){
+  checkIfImageExists('/static/3.jpg', (exists) => {
+  if (exists) {
+      console.log('Image exists.')
+      var timestamp = new Date().getTime();
+      result_received = document.createElement("img");
+      result_received.src = '/static/3.jpg?t='+ timestamp;
+      result.innerHTML = " ";
+      result.appendChild(result_received);
+      console.log("sucessfully send"); 
+  } else {
+      console.log('Image does not exists.')
+  }
+});
+}
+
+form1.addEventListener("click",function(e){
+  e.preventDefault();
+  phase1mag2.value = "1";
+  phase2mag1.value = "0";
+  var send = [phase1mag2.value,phase2mag1.value];
+  var blob = new Blob(send);
+  console.log(blob)
+  var fd = new FormData();
+  fd.append("phasemag",blob,"1");  
+  var xhr = new XMLHttpRequest;
+  xhr.open( "POST", "/",true);
+  xhr.send(fd);
+});
+form2.addEventListener("click",function(e){
+  e.preventDefault();
+  phase1mag2.value = "0";
+  phase2mag1.value = "1";
+  var send = [phase1mag2.value,phase2mag1.value];
+  var blob = new Blob(send);
+  var fd = new FormData();
+  fd.append("phasemag",blob,"2");  
+  var xhr = new XMLHttpRequest;
+  xhr.open( "POST", "/",true);
+  xhr.send(fd);
+});
+function checkIfImageExists(url, callback) {
+  const img = new Image();
+  img.src = url;
+  if (img.complete) {
+      callback(true);
+  } else {
+      img.onload = () => {
+      callback(true);
+  };
+      img.onerror = () => {
+      callback(false);
+      };
+  }
+}
+
+
