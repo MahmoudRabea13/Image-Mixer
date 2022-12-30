@@ -43,6 +43,11 @@ $("#file_input").change(function(e){
       layer.add(theImg);
       layer.draw();
     }
+    var fd = new FormData();
+    fd.append("image1",e.target.files[0],"./image1");  
+    var xhr = new XMLHttpRequest;
+    xhr.open( "POST", "/",true);
+    xhr.send(fd);
 });
 
 function rectdown() {
@@ -175,6 +180,11 @@ $("#file_input_2").change(function(e){
       layer_2.add(theImg);
       layer_2.draw();
     }
+    var fd = new FormData();
+    fd.append("image2",e.target.files[0],"./image2");  
+    var xhr = new XMLHttpRequest;
+    xhr.open( "POST", "/",true);
+    xhr.send(fd);
 });
 
 function delete_(){
