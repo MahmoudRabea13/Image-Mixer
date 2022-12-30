@@ -1,8 +1,10 @@
 img1 = document.getElementById('canvas-container-3')
 img2 = document.getElementById('canvas-container-4')
 result = document.getElementById('canvas-container-5')
-var form1 = document.getElementById('form1')
-var form2 = document.getElementById('form2')
+var form1 = document.getElementById('form1-phasemag')
+var form2 = document.getElementById('form2-phasemag')
+var select = document.getElementById('select')
+var cut= document.getElementById('cut')
 var phase1mag2 = document.getElementById('phase1mag2')
 var phase2mag1 = document.getElementById('phase2mag1')
 let isNowDrawing = false;
@@ -268,11 +270,11 @@ form1.addEventListener("click",function(e){
   var send = [phase1mag2.value,phase2mag1.value];
   var blob = new Blob(send);
   console.log(blob)
-  var fd = new FormData();
-  fd.append("phasemag",blob,"1");  
+  var fd2 = new FormData();
+  fd2.append("phasemag",blob,"1");  
   var xhr = new XMLHttpRequest;
   xhr.open( "POST", "/",true);
-  xhr.send(fd);
+  xhr.send(fd2);
 });
 form2.addEventListener("click",function(e){
   e.preventDefault();
@@ -280,11 +282,36 @@ form2.addEventListener("click",function(e){
   phase2mag1.value = "1";
   var send = [phase1mag2.value,phase2mag1.value];
   var blob = new Blob(send);
-  var fd = new FormData();
-  fd.append("phasemag",blob,"2");  
+  var fd2 = new FormData();
+  fd2.append("phasemag",blob,"2");  
   var xhr = new XMLHttpRequest;
   xhr.open( "POST", "/",true);
-  xhr.send(fd);
+  xhr.send(fd2);
+});
+select.addEventListener("click",function(e){
+  e.preventDefault();
+  select.value = "1";
+  cut.value = "0";
+  var send = [select.value,cut.value];
+  var blob = new Blob(send);
+  console.log(blob)
+  var fd2 = new FormData();
+  fd2.append("selectORcut",blob,"1");  
+  var xhr = new XMLHttpRequest;
+  xhr.open( "POST", "/",true);
+  xhr.send(fd2);
+});
+cut.addEventListener("click",function(e){
+  e.preventDefault();
+  select.value = "0";
+  cut.value = "1";
+  var send = [select.value,cut.value];
+  var blob = new Blob(send);
+  var fd2 = new FormData();
+  fd2.append("selectORcut",blob,"2");  
+  var xhr = new XMLHttpRequest;
+  xhr.open( "POST", "/",true);
+  xhr.send(fd2);
 });
 function checkIfImageExists(url, callback) {
   const img = new Image();
