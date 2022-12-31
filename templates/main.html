@@ -1,36 +1,60 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Image MiXer</title>
-    </head>
-    <body>
-        <h1 class="text-center">
-            Image MiXer
-        </h1>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/3.2.5/konva.min.js"></script>
-        <script src="https://unpkg.com/konva@8.3.14/konva.min.js"></script>
-        <link rel="stylesheet" href="/static/style.css">
-        <div class="upload-container">
-            <input type="file" id="file_input" class="custom-inp" >
-            <input type="file" id="file_input_2" class="custom-inp2" >
-        </div>
-        <div class="img-container">
-        <div id="canvas-container" class="canvas1" style='display: grid;  overflow: auto;'></div>
-        <div class="options-container hide" id="options">
-            <form action="/" method="POST" id="form1-phasemag"><button id="phase1mag2" value=" "class="btn magphase ">Phase1&Mag2</button></form>
-            <form action="/" method="POST" id="form2-phasemag"><button id="phase2mag1" value=" " class="btn magphase ">Phase2&Mag1</button></form>
-            <form action="/" method="POST" id="select"><button id="select" value=" " class="btn tools ">Select</button></form>
-            <form action="/" method="POST" id="cut"><button id="cut" value=" " class="btn tools">Cut</button></form>
-            <form><button onclick="delete_()" class="btn tools" id="delete">delete</button></form>
-        </div>
-        <div id="canvas-container-2" class="canvas2" style='display: grid;   overflow: auto;'></div>
-        <div id="canvas-container-3" class="canvas3" style='display: grid;   overflow: auto;'></div>
-        <div id="canvas-container-5" class="canvas5"  style='display: grid;   overflow: auto;'></div>
-        <div id="canvas-container-4" class="canvas4" style='display: grid;    overflow: auto;'></div>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/3.2.5/konva.min.js"></script>#}
+{#    <script src="https://unpkg.com/konva@8.3.14/konva.min.js"></script>#}
+{#    <div>Render a local image without upload</div>#}
+{#    <div>#}
+{#        <input type="file" id="file_input">#}
+{#        <button onclick="move()" class="button">move</button>#}
+{#        <button onclick="delete_()" class="button">delete</button>#}
+{#        <input type="file" id="file_input_2">#}
+{#    </div>#}
+{#    <div id="canvas-container" style='display: inline-block; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>#}
+{#    <div id="canvas-container-2" style='display: inline-block; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>#}
+{#</body>#}
+{#    <script  src="/static/main2.js"> </script>#}
+{#</html>#}
 
-        </div>
-    </body>
-        <script  src="/static/main.js"> </script>
-    </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image MiXer</title>
+</head>
+<body>
+    <h1 class="text-center">
+        Image MiXer
+    </h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/3.2.5/konva.min.js"></script>
+    <script src="https://unpkg.com/konva@8.3.14/konva.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <div class="upload-container">
+        <input type="file" id="file_input" class="custom-inp" >
+        <input type="file" id="file_input_2" class="custom-inp2" >
+    </div>
+    <div class="img-container">
+    <div id="canvas-container" class="canvas1" style='display: grid;  overflow: auto;'></div>
+    <div class="options-container hide" id="options">
+        <form action="/" method="POST" id="form1-phasemag"><button id="phase1mag2" value=" "class="btn magphase ">Phase1&Mag2</button></form>
+        <form action="/" method="POST" id="form2-phasemag"><button id="phase2mag1" value=" " class="btn magphase ">Phase2&Mag1</button></form>
+        <form action="/" method="POST" id="select"><button id="select" value=" " class="btn tools ">Select</button></form>
+        <form action="/" method="POST" id="cut"><button id="cut" value=" " class="btn tools">Cut</button></form>
+        <form><button onclick="delete_()" class="btn tools" id="delete">delete</button></form>
+    </div>
+    <div id="canvas-container-2" class="canvas2" style='display: grid;   overflow: auto;'></div>
+    <div id="canvas-container-3" class="canvas3" style='display: grid;   overflow: auto;'></div>
+    <div id="canvas-container-5" class="canvas5"  style='display: grid;   overflow: auto;'></div>
+    <div id="canvas-container-4" class="canvas4" style='display: grid;    overflow: auto;'></div>
+
+    </div>
+</body>
+    <script  src="/static/main.js"> </script>
+</html>
