@@ -51,8 +51,6 @@ def image():
             Functions.fourier_1 = Functions.fourier('./image1.jpg')
             Functions.fouriers_list[0] = Functions.magphase(Functions.fourier_1, 'mag')
             Functions.fouriers_list[1] = Functions.magphase(Functions.fourier_1, 'phase')
-            # Functions.fourier_1 = Functions.magphase(Functions.fourier_1, 'mag')
-            # Functions.visulaize(np.log(Functions.fourier_1),1)
             Functions.flag_1 = True
         if img2 != None:
             imgs_save2 = img2.filename + '.jpg'
@@ -60,29 +58,28 @@ def image():
             Functions.fourier_2 = Functions.fourier('./image2.jpg')
             Functions.fouriers_list[2] = Functions.magphase(Functions.fourier_2, 'mag')
             Functions.fouriers_list[3] = Functions.magphase(Functions.fourier_2, 'phase')
-            # Functions.fourier_2 = Functions.magphase(Functions.fourier_2, 'phase')
-            # Functions.visulaize(Functions.fourier_2,2)
             Functions.flag_2 = True
-        # if Functions.var == 1:
-        #     Functions.fourier_1 = Functions.magphase(Functions.fourier_1, 'phase')
-        #     Functions.visulaize(Functions.fourier_1,1)
-        #     Functions.fourier_2 = Functions.magphase(Functions.fourier_2, 'mag')
-        #     Functions.visulaize(np.log(Functions.fourier_2),2)
-        # if Functions.var == 2:
-        #     Functions.fourier_1 = Functions.magphase(Functions.fourier_1, 'mag')
-        #     Functions.visulaize(np.log(Functions.fourier_1),1)
-        #     Functions.fourier_2 = Functions.magphase(Functions.fourier_2, 'phase')
-        #     Functions.visulaize(Functions.fourier_2,2)
-        print(Functions.var)
-        Functions.visulaize(np.log(Functions.fouriers_list[Functions.var[0]]),1)
-        Functions.visulaize(Functions.fouriers_list[Functions.var[1]],2)
-        re_image = Functions.re_fourier(Functions.fouriers_list[Functions.var[0]],Functions.fouriers_list[Functions.var[1]])
-        # if Functions.flag_1:
-        #     re_image = Functions.re_fourier(Functions.fouriers_list[Functions.var[0]],Functions.fouriers_list[Functions.var[1]]])
-        # if Functions.flag_2:
-        #     re_image = Functions.re_fourier(Functions.random_mat,Functions.fourier_2)
-        # if Functions.flag_1 and Functions.flag_2:
-        #     re_image = Functions.re_fourier(Functions.fourier_1,Functions.fourier_2)
+        Functions.temp_fourier_1 = Functions.fouriers_list[Functions.var[0]]
+        Functions.temp_fourier_2 = Functions.fouriers_list[Functions.var[1]]
+        for i in range(len(Functions.cutting_mat)):
+            if Functions.cutting_mat[i][5] == 0:
+                if Functions.cutting_mat[i][0] == 0:
+                    Functions.temp_fourier_2 += Functions.cut(Functions.temp_fourier_2,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'keep')
+                if Functions.cutting_mat[i][0] == 1:
+                    Functions.temp_fourier_2 = Functions.cut(Functions.temp_fourier_2,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'cut')
+            if Functions.cutting_mat[i][5] == 1:
+                if Functions.cutting_mat[i][0] == 0:
+                    Functions.temp_fourier_1 += Functions.cut(Functions.temp_fourier_1,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'keep')
+                if Functions.cutting_mat[i][0] == 1:
+                    Functions.temp_fourier_1 = Functions.cut(Functions.temp_fourier_1,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'cut')
+        # Functions.fouriers_list[Functions.var[0]] =  Functions.temp_fourier_2   
+        if Functions.var[0] == 0:
+            Functions.visulaize(np.log(Functions.fouriers_list[Functions.var[0]]),1)
+            Functions.visulaize(Functions.fouriers_list[Functions.var[1]],2)
+        elif Functions.var[0] == 2:
+            Functions.visulaize(np.log(Functions.fouriers_list[Functions.var[0]]),2)
+            Functions.visulaize(Functions.fouriers_list[Functions.var[1]],1)
+        re_image = Functions.re_fourier(Functions.temp_fourier_1,Functions.temp_fourier_2)
         Functions.visulaize(np.abs(re_image),3)
         return render_template('main.html')
     else:
