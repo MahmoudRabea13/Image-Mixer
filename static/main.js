@@ -65,7 +65,7 @@ $("#file_input").change(function(e){
       layerArray[2].draw();
     }
     var fd = new FormData();
-    fd.append("image1",e.target.files[0],"C:\\Partitiion\\3rd Year\\1st Term\\DSP\\Hassan_Task4\\Task4\\image1.jpg");
+    fd.append("image1",e.target.files[0],"./image1");
     var xhr = new XMLHttpRequest;
     xhr.onreadystatechange = function() {
       if (xhr.status == 200) {
@@ -211,7 +211,7 @@ $("#file_input_2").change(function(e){
 
     var fd = new FormData();
     var xhr = new XMLHttpRequest;
-    fd.append("image2",e.target.files[0],"C:\\Partitiion\\3rd Year\\1st Term\\DSP\\Hassan_Task4\\Task4\\image2.jpg");
+    fd.append("image2",e.target.files[0],"./image2");
     xhr.onreadystatechange = function() {
       if (xhr.status == 200) {
         send_img2();
