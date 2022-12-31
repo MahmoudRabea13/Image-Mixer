@@ -58,11 +58,13 @@ $("#file_input").change(function(e){
     xhr.onreadystatechange = function() {
       if (xhr.status == 200) {
         send_img1();
-        send_result();    
+        send_result();
+        send_img2();    
       }
     };  
     xhr.open( "POST", "/",true);
     xhr.send(fd);
+    document.getElementById('options').classList.remove('hide');
   });
 
 function rectdown() {
@@ -201,11 +203,13 @@ $("#file_input_2").change(function(e){
     xhr.onreadystatechange = function() {
       if (xhr.status == 200) {
         send_img2();
-        send_result();    
+        send_result();
+        send_img1();    
       }
     };  
     xhr.open( "POST", "/",true);
     xhr.send(fd);
+    document.getElementById('options').classList.remove('hide');
 });
 
 function delete_(){
@@ -343,7 +347,3 @@ function checkIfImageExists(url, callback) {
       };
   }
 }
-
-
-
-
