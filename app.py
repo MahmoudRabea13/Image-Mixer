@@ -38,8 +38,8 @@ def image():
         select_cut = request.files.get('selectORcut')
         try:
             r = request.get_json()
-            Functions.cutting_mat = [[Functions.i,int(r['x']*800/295),int(r['y']*800/295),int(r['width']*800/295),int(r['height']*800/295),1]]
-            print(Functions.cutting_mat)
+            #Functions.cutting_mat = [[Functions.i,int(r['x']*800/295),int(r['y']*800/295),int(r['width']*800/295),int(r['height']*800/295),1]]
+            #print(Functions.cutting_mat)
             # Functions.cutting_mat = [1,10,20,30,30,1]
             print(r)
         except:

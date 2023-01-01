@@ -21,8 +21,6 @@ let stage1Active = 0;
 let stage2Active = 0;
 let dim_to_send = [];
 
-
-
 konvaInit('canvas-container-3',0);
 konvaInit('canvas-container-4',1);
 konvaInit('canvas-container',2);
@@ -424,7 +422,7 @@ function mouseupHandler(x)
             dim_to_send[1]=trArray[0][0].y();
             dim_to_send[2]=trArray[0][0].height();
             dim_to_send[3]=trArray[0][0].width();
-            // send_dim();
+            send_dim();
         }
         //stage1Active = 0;
         // send_dim();
@@ -446,13 +444,13 @@ function mouseupHandler(x)
             dim_to_send[5]=trArray[1][0].y();
             dim_to_send[6]=trArray[1][0].height();
             dim_to_send[7]=trArray[1][0].width();
-            // send_dim();
+            send_dim();
         }
         stage2Active = 1;
         // send_dim();
         // send_result();
     }
-    send_dim();
+    //send_dim();
     send_result();
     // await send_dim();
     // send_result();
@@ -695,11 +693,11 @@ function send_dim()
     // {
         var json =
             {
-                // data : dim_to_send
-                x: trArray[0][0].x(),
-                y: trArray[0][0].y(),
-                width: trArray[0][0].width(),
-                height: trArray[0][0].height(),
+                data : dim_to_send
+                // x: trArray[0][0].x(),
+                // y: trArray[0][0].y(),
+                // width: trArray[0][0].width(),
+                // height: trArray[0][0].height(),
                 // x1: trArray[1][0].x(),
                 // y1: trArray[1][0].y(),
                 // width1: trArray[1][0].width(),
