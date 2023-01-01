@@ -317,6 +317,7 @@ function mouseupHandler(x)
             rect_flag_2 = rect_flag_2 + 1;
         }
     }
+    send_dim();
 }
 
 function transformer(x,flag)
@@ -505,6 +506,44 @@ select.addEventListener("click",function(e){
   xhr.open( "POST", "/",true);
   xhr.send(fd2);
 });
+// select.addEventListener("click",function(e){
+//     e.preventDefault();
+//     const xhr = new XMLHttpRequest()
+// var json = {
+//   x: trArray[0].x(),
+//   y : trArray[0].y(),
+//   width : trArray[0].width(),
+//   height : trArray[0].height(),
+// }
+
+// // open request
+// xhr.open('POST', '/')
+
+// // set `Content-Type` header
+// xhr.setRequestHeader('Content-Type', 'application/json')
+// console.log(JSON.stringify(json))
+// // send rquest with JSON payload
+// xhr.send(JSON.stringify(json))
+// });
+function send_dim(){
+  const xhr = new XMLHttpRequest()
+  var json = {
+    x: trArray[0].x(),
+    y : trArray[0].y(),
+    width : trArray[0].width(),
+    height : trArray[0].height(),
+    x1: trArray[1].x(),
+  }
+  
+  // open request
+  xhr.open('POST', '/')
+  
+  // set `Content-Type` header
+  xhr.setRequestHeader('Content-Type', 'application/json')
+  console.log(JSON.stringify(json))
+  // send rquest with JSON payload
+  xhr.send(JSON.stringify(json))
+};
 cut.addEventListener("click",function(e){
   e.preventDefault();
   select.value = "0";

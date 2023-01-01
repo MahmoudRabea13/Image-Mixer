@@ -28,18 +28,28 @@ app = Flask(__name__)
 #     app.run()
 
 ########################################### Misara #######################################
+r = 0
 @app.route("/" ,methods=['POST','GET'])
 def image():
     if request.method == 'POST':
         img1=request.files.get('image1')
         img2=request.files.get('image2')
         phasemag = request.files.get('phasemag')
-        select_cut = request.files.get('selectORcut')
-        if select_cut != None:
-            if select_cut.filename == '1':
-                print('select')
-            else:
-                print('CUTZZZZZ')            
+        try:
+            r = request.get_json()
+            print(r['x'])
+        except:
+            pass
+        # select_cut = request.files.get('selectORcut')
+        # r = request.get_json()
+        # print(r)
+        # r = request.json
+        # print(r)
+        # if select_cut != None:
+        #     if select_cut.filename == '1':
+        #         print('select')
+        #     else:
+        #         print('CUTZZZZZ')            
         if phasemag != None:
             if phasemag.filename == '1':
                 Functions.var = [2,1]
