@@ -446,6 +446,8 @@ function mouseupHandler(x)
             dim_to_send[7]=trArray[1][0].width();
             send_dim();
         }
+        console.log(rectArray[1][0]);
+        console.log(trArray[1][0]);
         stage2Active = 1;
         // send_dim();
         // send_result();
@@ -534,12 +536,14 @@ function send_img1(){
 //   }
 // });
     var img = new Image();
-    img.src = '/static/1.jpg';
-
+    // console.log('Image exists.')
+    var timestamp = new Date().getTime();
+    img = document.createElement("img");
+    img.src = '/static/1.jpg?t='+ timestamp;
+    // img.src = '/static/1.jpg';
     img.onload = function() {
       var img_width = img.width;
       var img_height = img.height;
-
       // calculate dimensions to get max 300px
       var max = 369;
       var ratio = (img_width > img_height ? (img_width / max) : (img_height / max))
@@ -556,12 +560,15 @@ function send_img1(){
       });
       layerArray[0].add(theImg);
       layerArray[0].draw();
+      rect_flag_1 = 0;
     }
 }
  function send_img2(){
     var img = new Image();
-    img.src = '/static/2.jpg';
-
+    var timestamp = new Date().getTime();
+    img = document.createElement("img");
+    img.src = '/static/2.jpg?t='+ timestamp;
+    // img.src = '/static/2.jpg';
     img.onload = function() {
       var img_width = img.width;
       var img_height = img.height;
@@ -582,6 +589,7 @@ function send_img1(){
       });
       layerArray[1].add(theImg);
       layerArray[1].draw();
+      rect_flag_2 = 0;
     }
 //   checkIfImageExists('/static/2.jpg', (exists) => {
 //   if (exists) {
@@ -664,8 +672,10 @@ select.addEventListener("click",function(e){
   var fd2 = new FormData();
   fd2.append("selectORcut",blob,"1");
   var xhr = new XMLHttpRequest;
-  xhr.open( "POST", "/",true);
+  xhr.open( "POST", "/",false);
   xhr.send(fd2);
+  send_dim();
+  send_result();
 });
 // select.addEventListener("click",function(e){
 //     e.preventDefault();
@@ -731,8 +741,10 @@ cut.addEventListener("click",function(e){
   var fd2 = new FormData();
   fd2.append("selectORcut",blob,"2");
   var xhr = new XMLHttpRequest;
-  xhr.open( "POST", "/",true);
+  xhr.open( "POST", "/",false);
   xhr.send(fd2);
+  send_dim();
+  send_result();
 });
 function checkIfImageExists(url, callback) {
   const img = new Image();

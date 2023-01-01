@@ -38,24 +38,58 @@ def image():
         select_cut = request.files.get('selectORcut')
         try:
             r = request.get_json()
-            #Functions.cutting_mat = [[Functions.i,int(r['x']*800/295),int(r['y']*800/295),int(r['width']*800/295),int(r['height']*800/295),1]]
-            #print(Functions.cutting_mat)
-            # Functions.cutting_mat = [1,10,20,30,30,1]
-            print(r)
+            list_of_data = r['data']
+            if len(list_of_data)>6 and list_of_data[1] == None:
+                for i in range(4):
+                    list_of_data[i] = 0
+            for i in range(len(list_of_data)):
+                list_of_data[i] = int(list_of_data[i]*800/369)
+            list_of_data.insert(0,Functions.cut_or_keep)
+            # list_of_data.append(Functions.cut_or_keep)
+            if Functions.var[0] == 0:
+                if list_of_data[4]==0:
+                    list_of_data.insert(5,Functions.cut_or_keep)
+                    list_of_data.append(0)
+                    Functions.cutting_mat = [list_of_data[5:]]
+                    print(Functions.var[0])
+                    print(Functions.cutting_mat)
+                else:
+                    if len(list_of_data)>6:
+                        list_of_data.insert(5,1)
+                        list_of_data.insert(6,Functions.cut_or_keep)
+                        list_of_data.append(0)
+                        Functions.cutting_mat = [list_of_data[:6],list_of_data[6:]]
+                        print(Functions.cutting_mat)
+                    if len(list_of_data) <= 6:
+                        list_of_data.append(1)
+                        Functions.cutting_mat = [list_of_data[:6]]
+                        print(Functions.cutting_mat)    
+            else:
+                if list_of_data[4]==0:
+                    list_of_data.insert(5,Functions.cut_or_keep)
+                    list_of_data.append(0)
+                    Functions.cutting_mat = [list_of_data[5:]]
+                    print(Functions.cutting_mat)
+                else:
+                    if len(list_of_data)>6:
+                        list_of_data.insert(5,0)
+                        list_of_data.insert(6,Functions.cut_or_keep)
+                        list_of_data.append(1)
+                        Functions.cutting_mat = [list_of_data[:6],list_of_data[6:]]
+                        print(Functions.cutting_mat)
+                    if len(list_of_data) <= 6:
+                        list_of_data.append(0)
+                        Functions.cutting_mat = [list_of_data[:6]]
+                        print(Functions.cutting_mat) 
         except:
             Functions.cutting_mat = [[0,0,0,800,800,1]]
             print('hello')
             pass
-        # select_cut = request.files.get('selectORcut')
-        # r = request.get_json()
-        # print(r)
-        # r = request.json
-        # print(r)
         if select_cut != None:
             if select_cut.filename == '1':
-                Functions.i = 0
+                Functions.cut_or_keep = 0
             else:
-                Functions.i = 1         
+                Functions.cut_or_keep = 1         
         if phasemag != None:
             if phasemag.filename == '1':
                 Functions.var = [2,1]
