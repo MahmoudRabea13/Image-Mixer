@@ -11,8 +11,9 @@
 {#    <div>Render a local image without upload</div>#}
 {#    <div>#}
 {#        <input type="file" id="file_input">#}
-{#        <button onclick="move()" class="button">move</button>#}
-{#        <button onclick="delete_()" class="button">delete</button>#}
+{#        <button onclick="Select()" class="button">select</button>#}
+{#        <button onclick="Delete()" class="button">delete</button>#}
+{#        <button onclick="Cut()" class="button">cut</button>#}
 {#        <input type="file" id="file_input_2">#}
 {#    </div>#}
 {#    <div id="canvas-container" style='display: inline-block; border: 1px solid #ccc;  background-color: #ccc; overflow: auto;'></div>#}
@@ -58,3 +59,62 @@
 </body>
     <script  src="/static/main.js"> </script>
 </html>
+
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#    <head>#}
+{#        <meta charset="UTF-8">#}
+{#        <title>Image MiXer</title>#}
+{#    </head>#}
+{#    <body>#}
+{#        <h1 class="text-center">#}
+{#            Image MiXer#}
+{#        </h1>#}
+{#        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
+{#        <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/3.2.5/konva.min.js"></script>#}
+{#        <script src="https://unpkg.com/konva@8.3.14/konva.min.js"></script>#}
+{#        <link rel="stylesheet" href="/static/style.css">#}
+{#        <div class="upload-container">#}
+{#            <input type="file" id="file_input" class="custom-inp" onchange="my_function()"  >#}
+{#            <script>#}
+{##}
+{#                function my_function(){#}
+{#                    document.getElementsByClassName('optionss')[0].style.display = "grid"#}
+{#                }#}
+{#            </script>#}
+{##}
+{#            <input type="file" id="file_input_2" class="custom-inp2"onchange="my_function()" >#}
+{#        </div>#}
+{##}
+{#        <div class="upload-container">#}
+{#            <input type="file" id="file_input" class="custom-inp" >#}
+{#            <input type="file" id="file_input_2" class="custom-inp2" >#}
+{#        </div>#}
+{#        <div class="img-container">#}
+{#        <div id="canvas-container" class="canvas1" style='display: grid;  overflow: auto; width: fit-content;'></div>#}
+{#        <div class="options-container hide" id="options">#}
+{##}
+{##}
+{#        </div>#}
+{#        <div id="canvas-container-2" class="canvas2" style='display: grid;   overflow: auto; width: fit-content;'></div>#}
+{##}
+{#        <div id="canvas-container-5" class="canvas5"  style=' margin-left: -360px;   overflow: auto; width: fit-content; '></div>#}
+{##}
+{##}
+{#        <div id="canvas-container-3" class="canvas3" style='display: grid;   overflow: auto; width: fit-content;'></div>#}
+{##}
+{#        <div id="canvas-container-4" class="canvas4" style='display: grid;    overflow: auto; width: fit-content;'></div>#}
+{##}
+{#        </div>#}
+{#        <div class="optionss">#}
+{#            <form action="/" method="POST" id="form1-phasemag" style="width: 119px;"><button id="phase1mag2" value=" "class="btn magphase  " >Phase1&Mag2</button></form>#}
+{#            <form action="/" method="POST" id="form2-phasemag" style="width: 119px;"><button id="phase2mag1" value=" " class="btn magphase " style="margin-left: -223px;">Phase2&Mag1</button></form>#}
+{#            <form action="/" method="POST" id="select"><button id="select" value=" " class="btn tools " style="margin-left: -473px;">Select</button></form>#}
+{#            <form action="/" method="POST" id="cut"><button id="cut" value=" " class="btn tools" style="margin-left: -700px;">Cut</button></form>#}
+{#            <form style="width: 119px; margin-left:167px; margin-top: -40px; "><button onclick="delete_()" class="btn tools" id="delete" style="margin-left:1023px ;">delete</button></form>#}
+{#        </div>#}
+{#    </body>#}
+{#        <script  src="/static/main.js"> </script>#}
+{#</html>#}

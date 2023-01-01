@@ -9,19 +9,22 @@ var phase1mag2 = document.getElementById('phase1mag2')
 var phase2mag1 = document.getElementById('phase2mag1')
 
 let isNowDrawing = false;
-let rectArray = [0,0];
-let trArray = [0,0];
+let rectArray = [[0,0],[0,0]];
+let trArray = [[0,0],[0,0]];
 let stageArray = [0,0,0,0];
 let layerArray = [0,0,0,0];
 let rect_flag_1 = 0;
 let rect_flag_2 = 0;
-let tr1 = 0;
+let drawThreshold = 0;
 let y = 0;
 
 konvaInit('canvas-container-3',0);
 konvaInit('canvas-container-4',1);
 konvaInit('canvas-container',2);
 konvaInit('canvas-container-2',3);
+
+uploadImage(layerArray[0] , "#file_input");
+uploadImage(layerArray[1] , "#file_input_2");
 
 // Create the stage and a layer to draw on.
 // var stage = new Konva.Stage({
@@ -35,49 +38,101 @@ konvaInit('canvas-container-2',3);
 // stage.draw();
 
 // listen for the file input change event and load the image.
-$("#file_input").change(function(e){
+// $("#file_input").change(function(e){
+//
+//     var URL = window.webkitURL || window.URL;
+//     var url = URL.createObjectURL(e.target.files[0]);
+//     var img = new Image();
+//     img.src = url;
+//
+//     img.onload = function() {
+//
+//       var img_width = img.width;
+//       var img_height = img.height;
+//
+//       // calculate dimensions to get max 300px
+//       var max = 369;
+//       var ratio = (img_width > img_height ? (img_width / max) : (img_height / max))
+//
+//       // now load the Konva image
+//       var theImg = new Konva.Image({
+//         image: img,
+//         x: 0,
+//         y: 0,
+//         width: img_width/ratio,
+//         height: img_height/ratio,
+//         draggable: false,
+//         rotation: 0
+//       });
+//       layerArray[2].add(theImg);
+//       layerArray[2].draw();
+//     }
+//     var fd = new FormData();
+//     fd.append("image1",e.target.files[0],"./image1");
+//     var xhr = new XMLHttpRequest;
+//     xhr.onreadystatechange = function() {
+//       if (xhr.status == 200) {
+//         send_img1();
+//         send_result();
+//         send_img2();
+//       }
+//     };
+//     xhr.open( "POST", "/",true);
+//     xhr.send(fd);
+//     document.getElementById('options').classList.remove('hide');
+//   });
 
-    var URL = window.webkitURL || window.URL;
-    var url = URL.createObjectURL(e.target.files[0]);
-    var img = new Image();
-    img.src = url;
 
-    img.onload = function() {
+//listen for the file input change event and load the image.
+function uploadImage( layer , file_input )
+{
+    $(file_input).change(function(e)
+    {
+        var URL = window.webkitURL || window.URL;
+        var url = URL.createObjectURL(e.target.files[0]);
+        var img = new Image();
 
-      var img_width = img.width;
-      var img_height = img.height;
+        img.src = url;
 
-      // calculate dimensions to get max 300px
-      var max = 369;
-      var ratio = (img_width > img_height ? (img_width / max) : (img_height / max))
+        img.onload = function() {
+            var img_width = img.width;
+            var img_height = img.height;
 
-      // now load the Konva image
-      var theImg = new Konva.Image({
-        image: img,
-        x: 0,
-        y: 0,
-        width: img_width/ratio,
-        height: img_height/ratio,
-        draggable: false,
-        rotation: 0
-      });
-      layerArray[2].add(theImg);
-      layerArray[2].draw();
-    }
-    var fd = new FormData();
-    fd.append("image1",e.target.files[0],"./image1");
-    var xhr = new XMLHttpRequest;
-    xhr.onreadystatechange = function() {
-      if (xhr.status == 200) {
-        send_img1();
-        send_result();
-        send_img2();
-      }
-    };
-    xhr.open( "POST", "/",true);
-    xhr.send(fd);
-    document.getElementById('options').classList.remove('hide');
-  });
+            // calculate dimensions to get max 500px
+            var max = 500;
+            var ratio = (img_width > img_height ? (img_width / max) : (img_height / max))
+
+            // now load the Konva image
+            var theImg = new Konva.Image({
+                image: img,
+                x: 0,
+                y: 0,
+                width: img_width/ratio,
+                height: img_height/ratio,
+                draggable: false,
+                rotation: 0
+            });
+        layer.add(theImg);
+        layer.draw();
+        }
+        var fd = new FormData();
+        fd.append("image1",e.target.files[0],"./image1");
+        var xhr = new XMLHttpRequest;
+        xhr.onreadystatechange = function() {
+        if (xhr.status == 200) {
+            send_img1();
+            send_result();
+            send_img2();
+        }
+        };
+        xhr.open( "POST", "/",true);
+        xhr.send(fd);
+        document.getElementById('options').classList.remove('hide');
+    });
+}
+
+
+
 
 // function rectdown() {
 //   rect = new Konva.Rect({
@@ -180,54 +235,78 @@ $("#file_input").change(function(e){
 // stage_2.draw();
 
 // listen for the file input change event and load the image.
-$("#file_input_2").change(function(e){
-    var URL = window.webkitURL || window.URL;
-    var url = URL.createObjectURL(e.target.files[0]);
-    var img = new Image();
-
-    img.src = url;
-
-    img.onload = function() {
-      var img_width = img.width;
-      var img_height = img.height;
-
-      // calculate dimensions to get max 300px
-      var max = 369;
-      var ratio = (img_width > img_height ? (img_width / max) : (img_height / max))
-
-      // now load the Konva image
-      var theImg = new Konva.Image({
-        image: img,
-        x: 0,
-        y: 0,
-        width: img_width/ratio,
-        height: img_height/ratio,
-        draggable: false,
-        rotation: 0
-      });
-      layerArray[3].add(theImg);
-      layerArray[3].draw();
-    }
-
-    var fd = new FormData();
-    var xhr = new XMLHttpRequest;
-    fd.append("image2",e.target.files[0],"./image2");
-    xhr.onreadystatechange = function() {
-      if (xhr.status == 200) {
-        send_img2();
-        send_result();
-        send_img1();
-      }
-    };
-    xhr.open( "POST", "/",true);
-    xhr.send(fd);
-    document.getElementById('options').classList.remove('hide');
-});
+// $("#file_input_2").change(function(e){
+//     var URL = window.webkitURL || window.URL;
+//     var url = URL.createObjectURL(e.target.files[0]);
+//     var img = new Image();
+//
+//     img.src = url;
+//
+//     img.onload = function() {
+//       var img_width = img.width;
+//       var img_height = img.height;
+//
+//       // calculate dimensions to get max 300px
+//       var max = 369;
+//       var ratio = (img_width > img_height ? (img_width / max) : (img_height / max))
+//
+//       // now load the Konva image
+//       var theImg = new Konva.Image({
+//         image: img,
+//         x: 0,
+//         y: 0,
+//         width: img_width/ratio,
+//         height: img_height/ratio,
+//         draggable: false,
+//         rotation: 0
+//       });
+//       layerArray[3].add(theImg);
+//       layerArray[3].draw();
+//     }
+//
+//     var fd = new FormData();
+//     var xhr = new XMLHttpRequest;
+//     fd.append("image2",e.target.files[0],"./image2");
+//     xhr.onreadystatechange = function() {
+//       if (xhr.status == 200) {
+//         send_img2();
+//         send_result();
+//         send_img1();
+//       }
+//     };
+//     xhr.open( "POST", "/",true);
+//     xhr.send(fd);
+//     document.getElementById('options').classList.remove('hide');
+// });
 
 ////////////////////////////////////////////// misoooo ////////////////////////////////////////
 
-function rectdown(x,flag) {
-  rectArray[flag] = new Konva.Rect({
+// function rectdown(x,flag) {
+//   rectArray[flag] = new Konva.Rect({
+//     x: stageArray[x].getPointerPosition().x,
+//     y: stageArray[x].getPointerPosition().y,
+//     width: 0,
+//     height: 0,
+//     fill: "transparent",
+//     stroke: "red",
+//     strokeWidth: 2,
+//   });
+//   // rectArray.push(rect);
+//   layerArray[x].add(rectArray[flag]);
+//   layerArray[x].draw();
+//   // console.log(stage.getPointerPosition().x);
+//   // console.log(stage.getPointerPosition().y);
+// }
+//
+// function rectMove(x,flag) {
+//   const newWidth = stageArray[x].getPointerPosition().x - rectArray[flag].x();
+//   const newHeight = stageArray[x].getPointerPosition().y - rectArray[flag].y();
+//   rectArray[flag].width(newWidth);
+//   rectArray[flag].height(newHeight);
+// }
+
+function rectdown( x,flag ) {
+  rectArray[x][flag] = new Konva.Rect({
     x: stageArray[x].getPointerPosition().x,
     y: stageArray[x].getPointerPosition().y,
     width: 0,
@@ -236,19 +315,19 @@ function rectdown(x,flag) {
     stroke: "red",
     strokeWidth: 2,
   });
-  // rectArray.push(rect);
-  layerArray[x].add(rectArray[flag]);
+  layerArray[x].add(rectArray[x][flag]);
   layerArray[x].draw();
   // console.log(stage.getPointerPosition().x);
   // console.log(stage.getPointerPosition().y);
 }
 
 function rectMove(x,flag) {
-  const newWidth = stageArray[x].getPointerPosition().x - rectArray[flag].x();
-  const newHeight = stageArray[x].getPointerPosition().y - rectArray[flag].y();
-  rectArray[flag].width(newWidth);
-  rectArray[flag].height(newHeight);
+  const newWidth = stageArray[x].getPointerPosition().x - rectArray[x][flag].x();
+  const newHeight = stageArray[x].getPointerPosition().y - rectArray[x][flag].y();
+  rectArray[x][flag].width(newWidth);
+  rectArray[x][flag].height(newHeight);
 }
+
 
 //stageArray[0].on("mousedown", mousedownHandler(0));
 stageArray[0].on("mousedown", function() { mousedownHandler(0); });
@@ -319,6 +398,20 @@ function mouseupHandler(x)
     }
     send_dim();
 }
+//
+// function transformer(x,flag)
+// {
+//     let group = new Konva.Group({
+//         draggable: true,
+//     });
+//     layerArray[x].add(group);
+//     group.add(rectArray[flag]);
+//     trArray[flag] = new Konva.Transformer({
+//         node: group,
+//     });
+//     layerArray[x].add(trArray[flag]);
+// }
+
 
 function transformer(x,flag)
 {
@@ -326,11 +419,11 @@ function transformer(x,flag)
         draggable: true,
     });
     layerArray[x].add(group);
-    group.add(rectArray[flag]);
-    trArray[flag] = new Konva.Transformer({
+    group.add(rectArray[x][flag]);
+    trArray[x][flag] = new Konva.Transformer({
         node: group,
     });
-    layerArray[x].add(trArray[flag]);
+    layerArray[x].add(trArray[x][flag]);
 }
 
 function konvaInit(container , x)
@@ -343,6 +436,32 @@ function konvaInit(container , x)
     layerArray[x] = new Konva.Layer();
     stageArray[x].add(layerArray[x]);
     stageArray[x].draw();
+}
+
+function Delete()
+{
+    if(y===0) {
+        if (rect_flag_1 !== 0) {
+            rectArray[y][rect_flag_1 - 1].destroy();
+            trArray[y][rect_flag_1 - 1].destroy();
+            rect_flag_1 = rect_flag_1 - 1;
+        }
+        else
+        {
+            y=1;
+        }
+    }
+    else {
+        if (rect_flag_2 !== 0) {
+            rectArray[1][rect_flag_2 - 1].destroy();
+            trArray[1][rect_flag_2 - 1].destroy();
+            rect_flag_2 = rect_flag_2 - 1;
+        }
+        else
+        {
+            y=0;
+        }
+    }
 }
 
 
@@ -528,11 +647,11 @@ select.addEventListener("click",function(e){
 function send_dim(){
   const xhr = new XMLHttpRequest()
   var json = {
-    x: trArray[0].x(),
-    y : trArray[0].y(),
-    width : trArray[0].width(),
-    height : trArray[0].height(),
-    x1: trArray[1].x(),
+    x: trArray[0][0].x(),
+    y : trArray[0][0].y(),
+    width : trArray[0][0].width(),
+    height : trArray[0][0].height(),
+    x1: trArray[1][0].x(),
   }
   
   // open request
