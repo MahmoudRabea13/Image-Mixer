@@ -411,8 +411,8 @@ function mouseupHandler(x)
             isNowDrawing = false;
             transformer(x,rect_flag_1);
             rect_flag_1 = rect_flag_1 + 1;
-            //send_dim();
-            //send_result();
+            // send_dim();
+            // send_result();
         }
         else
         {
@@ -424,11 +424,11 @@ function mouseupHandler(x)
             dim_to_send[1]=trArray[0][0].y();
             dim_to_send[2]=trArray[0][0].height();
             dim_to_send[3]=trArray[0][0].width();
-            send_dim();
+            // send_dim();
         }
         //stage1Active = 0;
-        //send_dim();
-        send_result();
+        // send_dim();
+        // send_result();
     }
     else
     {
@@ -446,14 +446,17 @@ function mouseupHandler(x)
             dim_to_send[5]=trArray[1][0].y();
             dim_to_send[6]=trArray[1][0].height();
             dim_to_send[7]=trArray[1][0].width();
-            send_dim();
+            // send_dim();
         }
         stage2Active = 1;
-        //send_dim();
-        send_result();
+        // send_dim();
+        // send_result();
     }
+    send_dim();
+    send_result();
+    // await send_dim();
+    // send_result();
 }
-
 function transformer(x,flag)
 {
     let group = new Konva.Group({
@@ -692,11 +695,11 @@ function send_dim()
     // {
         var json =
             {
-                data : dim_to_send
-                // x: trArray[0][0].x(),
-                // y: trArray[0][0].y(),
-                // width: trArray[0][0].width(),
-                // height: trArray[0][0].height(),
+                // data : dim_to_send
+                x: trArray[0][0].x(),
+                y: trArray[0][0].y(),
+                width: trArray[0][0].width(),
+                height: trArray[0][0].height(),
                 // x1: trArray[1][0].x(),
                 // y1: trArray[1][0].y(),
                 // width1: trArray[1][0].width(),
@@ -705,13 +708,20 @@ function send_dim()
     //}
   
     // open request
-    xhr.open('POST', '/')
+    xhr.open('POST', '/',async=false)
   
     // set `Content-Type` header
     xhr.setRequestHeader('Content-Type', 'application/json')
     console.log(JSON.stringify(json))
     // send rquest with JSON payload
     xhr.send(JSON.stringify(json))
+    // if (xhr.status <= 200){
+    //   console.log("ahln ya 7abib a5ooook");
+    //   return true;
+    // }
+    // else{
+    //   return false;
+    // }
 };
 
 cut.addEventListener("click",function(e){

@@ -44,6 +44,7 @@ def image():
             print(r)
         except:
             Functions.cutting_mat = [[0,0,0,800,800,1]]
+            print('hello')
             pass
         # select_cut = request.files.get('selectORcut')
         # r = request.get_json()
