@@ -35,21 +35,26 @@ def image():
         img1=request.files.get('image1')
         img2=request.files.get('image2')
         phasemag = request.files.get('phasemag')
+        select_cut = request.files.get('selectORcut')
         try:
             r = request.get_json()
-            print(r['x'])
+            Functions.cutting_mat = [[1,int(r['x']*800/295),int(r['y']*800/295),int(r['width']*800/295),int(r['height']*800/295),1]]
+            print(Functions.cutting_mat)
+            # Functions.cutting_mat = [1,10,20,30,30,1]
+            print(r)
         except:
+            Functions.cutting_mat = [[0,0,0,800,800,1]]
             pass
         # select_cut = request.files.get('selectORcut')
         # r = request.get_json()
         # print(r)
         # r = request.json
         # print(r)
-        # if select_cut != None:
-        #     if select_cut.filename == '1':
-        #         print('select')
-        #     else:
-        #         print('CUTZZZZZ')            
+        if select_cut != None:
+            if select_cut.filename == '1':
+                print('select')
+            else:
+                print('CUTZZZZZ')            
         if phasemag != None:
             if phasemag.filename == '1':
                 Functions.var = [2,1]
