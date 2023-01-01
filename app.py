@@ -38,7 +38,7 @@ def image():
         select_cut = request.files.get('selectORcut')
         try:
             r = request.get_json()
-            Functions.cutting_mat = [[1,int(r['x']*800/295),int(r['y']*800/295),int(r['width']*800/295),int(r['height']*800/295),1]]
+            Functions.cutting_mat = [[Functions.i,int(r['x']*800/295),int(r['y']*800/295),int(r['width']*800/295),int(r['height']*800/295),1]]
             print(Functions.cutting_mat)
             # Functions.cutting_mat = [1,10,20,30,30,1]
             print(r)
@@ -52,9 +52,9 @@ def image():
         # print(r)
         if select_cut != None:
             if select_cut.filename == '1':
-                print('select')
+                Functions.i = 0
             else:
-                print('CUTZZZZZ')            
+                Functions.i = 1         
         if phasemag != None:
             if phasemag.filename == '1':
                 Functions.var = [2,1]
@@ -79,14 +79,14 @@ def image():
         for i in range(len(Functions.cutting_mat)):
             if Functions.cutting_mat[i][5] == 0:
                 if Functions.cutting_mat[i][0] == 0:
-                    Functions.temp_fourier_2 += Functions.cut(Functions.temp_fourier_2,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'keep')
+                    Functions.temp_fourier_2 = Functions.cut(Functions.temp_fourier_2,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'keep')
                 if Functions.cutting_mat[i][0] == 1:
                     Functions.temp_fourier_2 = Functions.cut(Functions.temp_fourier_2,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'cut')
             if Functions.cutting_mat[i][5] == 1:
                 if Functions.cutting_mat[i][0] == 0:
-                    Functions.temp_fourier_1 += Functions.cut(Functions.temp_fourier_1,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'keep')
+                    Functions.temp_fourier_1 = Functions.cut(Functions.fouriers_list[Functions.var[0]],Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'keep')
                 if Functions.cutting_mat[i][0] == 1:
-                    Functions.temp_fourier_1 = Functions.cut(Functions.temp_fourier_1,Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'cut')
+                    Functions.temp_fourier_1 = Functions.cut(Functions.fouriers_list[Functions.var[0]],Functions.cutting_mat[i][1],Functions.cutting_mat[i][2],Functions.cutting_mat[i][3],Functions.cutting_mat[i][4],'cut')
         # Functions.fouriers_list[Functions.var[0]] =  Functions.temp_fourier_2   
         if Functions.var[0] == 0:
             Functions.visulaize(np.log(Functions.fouriers_list[Functions.var[0]]),1)

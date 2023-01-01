@@ -385,7 +385,11 @@ function mouseupHandler(x)
             isNowDrawing = false;
             transformer(x,rect_flag_1);
             rect_flag_1 = rect_flag_1 + 1;
+            send_dim();
+            send_result();
         }
+        send_dim();
+        send_result();
     }
     else
     {
@@ -394,11 +398,12 @@ function mouseupHandler(x)
             isNowDrawing = false;
             transformer(x,rect_flag_2);
             rect_flag_2 = rect_flag_2 + 1;
-        }
+            send_dim();
+            send_result();
+          }
+          send_dim();
+          send_result();
     }
-    send_dim();
-    
-    send_result();
 }
 //
 // function transformer(x,flag)
