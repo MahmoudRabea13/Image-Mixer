@@ -3,22 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import sys
+from image import *
 class Functions():
-    fourier_1 = []
-    fourier_2 = []
-    # fou_send_1 = []
-    # fou_send_2 = []
-    cut_or_keep = 0
-    cutting_mat = []
-    # ,[0,100,100,100,100,0],[0,400,400,300,300,0]
-    # ,[1,100,600,10,10],[1,200,200,50,50],[1,600,400,200,100]
-    temp_fourier_1 = np.zeros((800,800))
-    temp_fourier_2 = np.zeros((800,800))
-    var = [0,3]
-    flag_1 = False
-    flag_2 = False
-    random_mat = np.random.randint(0,1000,size=(800,800))
-    fouriers_list = [random_mat,random_mat,random_mat,random_mat]
     def fourier(img):
         matrix = cv.imread(img)
         matrix = cv.cvtColor(matrix, cv.COLOR_BGR2GRAY)
@@ -74,5 +60,5 @@ class Functions():
         return list_of_data
     def show_image(order):
         order_list = [[1,2],[],[2,1]]
-        Functions.visulaize(np.log(Functions.fouriers_list[Functions.var[0]]),order_list[order][0])
-        Functions.visulaize(Functions.fouriers_list[Functions.var[1]],order_list[order][1])
+        Functions.visulaize(np.log(Image.fouriers_list[Image.var[0]]),order_list[order][0])
+        Functions.visulaize(Image.fouriers_list[Image.var[1]],order_list[order][1])
