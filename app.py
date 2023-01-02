@@ -45,13 +45,11 @@ def image():
             for i in range(len(list_of_data)):
                 list_of_data[i] = int(list_of_data[i]*800/369)
             list_of_data.insert(0,Functions.cut_or_keep)
-            # list_of_data.append(Functions.cut_or_keep)
             if Functions.var[0] == 0:
-                if list_of_data[4]==0:
+                if list_of_data[3]==0:
                     list_of_data.insert(5,Functions.cut_or_keep)
                     list_of_data.append(0)
                     Functions.cutting_mat = [list_of_data[5:]]
-                    print(Functions.var[0])
                     print(Functions.cutting_mat)
                 else:
                     if len(list_of_data)>6:
